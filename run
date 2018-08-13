@@ -1,0 +1,23 @@
+#!/bin/bash
+#!/bin/bash
+export WINEPREFIX=$(pwd)/wine
+export WINEARCH=win64
+case "$1" in
+	init)
+		winecfg
+		wget -P ./wine http://www.jrsoftware.org/download.php/is.exe
+		wine ./wine/is.exe
+		;;
+	build)
+		wine "C:\\Program Files (x86)\\Inno Setup 5\\iscc.exe" ./nams.iss
+		;;
+	clean)
+		rm -rf build/
+		;;
+	deepclean)
+		rm -rf build/ wine/
+		;;
+	*)
+		echo $"Usage: $0 {init|build|clean|deepclean}"
+		exit 1
+esac

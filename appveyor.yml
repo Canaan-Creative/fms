@@ -1,0 +1,58 @@
+version: 0.1.0.{build}
+
+environment:
+  matrix:
+    - PYTHON: "C:\\Python36-x64"
+
+
+branches:
+  only:
+    - master
+
+image: Visual Studio 2017
+platform:
+  - x64
+
+cache:
+  - 'namsc\node_modules'
+  - 'namsd\build'
+  - 'namsd\venv'
+  - '%APPDATA%\npm-cache'
+  - '%USERPROFILE%\.electron'
+  - '%USERPROFILE%\AppData\Local\Yarn\cache'
+
+init:
+  - git config --global core.autocrlf input
+
+install:
+  - git reset --hard HEAD
+  - ps: Install-Product node 8 x64
+  - choco install yarn --ignore-dependencies
+  - choco install -y InnoSetup
+  - cd namsd
+  - "%PYTHON%\\python.exe -m venv venv"
+  - venv\Scripts\activate.bat
+  - pip install -r requirements.txt
+  - deactivate
+  - cd ..
+  - cd namsc
+  - yarn
+  - cd ..
+  - node --version
+
+build_script:
+  - cd namsd
+  - venv\Scripts\activate.bat
+  - pyinstaller namsd.spec
+  - deactivate
+  - cd ..
+  - cd namsc
+  - yarn build
+  - cd ..
+  - set PATH=%PATH%;"C:\Program Files (x86)\Inno Setup 5"
+  - ISCC nams.iss
+
+test: off
+
+artifacts:
+    - path: build\nams.exe

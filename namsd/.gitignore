@@ -1,0 +1,11 @@
+*.swp
+*.pyc
+nams.db
+__pycache__
+build/
+dist/
+wine/
+log/
+data/
+venv/
+/.idea/

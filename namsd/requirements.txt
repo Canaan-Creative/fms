@@ -1,0 +1,17 @@
+altgraph==0.15
+click==6.7
+Flask==0.12.2
+Flask-Cors==3.0.3
+future==0.16.0
+gevent==1.2.2
+greenlet==0.4.13
+itsdangerous==0.24
+Jinja2==2.10
+macholib==1.9
+MarkupSafe==1.0
+pefile==2017.11.5
+PyInstaller==3.3.1
+pypiwin32==223
+pywin32==223
+six==1.11.0
+Werkzeug==0.14.1
